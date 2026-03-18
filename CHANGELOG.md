@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.4.1 (2026-03-18)
+
+### Bug Fixes
+
+- Invalidate caches if any per release so that fresh fetches will be made for each app version
+  ([`7bd73a0`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/7bd73a013f0a687b97e4ef337fabfe0bbb73cca5))
+
+
 ## v0.4.0 (2026-03-18)
 
 ### Features
