@@ -1,0 +1,13 @@
+.git
+.gitignore
+.github
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+.pytest_cache
+.ruff_cache
+.tox
+uv.lock

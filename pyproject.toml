@@ -14,7 +14,10 @@ keywords = [
     "dungeons and dragons",
     "webapp",
 ]
-dependencies = []
+dependencies = [
+    "fastapi>=0.116.0",
+    "uvicorn[standard]>=0.35.0",
+]
 
 [project.urls]
 source = "https://github.com/dyka3773/5.5e-initiative-tracker"

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5.5e Initiative Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="tracker-card">
+      <header class="tracker-header">
+        <div>
+          <p class="eyebrow">DUNGEONS AND DRAGONS 5.5e</p>
+          <h1>Initiative Tracker</h1>
+        </div>
+        <div class="actions" role="group" aria-label="Table actions">
+          <button id="sort-btn" type="button">Sort by Initiative</button>
+          <button id="add-row-btn" type="button">Add Row</button>
+          <button id="clear-btn" type="button" class="danger">Clear Table</button>
+        </div>
+      </header>
+
+      <div class="table-wrap">
+        <table aria-label="Combatant initiative table">
+          <thead>
+            <tr>
+              <th scope="col">Initiative</th>
+              <th scope="col">Name</th>
+              <th scope="col">HP</th>
+              <th scope="col">AC</th>
+              <th scope="col">Conditions</th>
+            </tr>
+          </thead>
+          <tbody id="combatant-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <template id="row-template">
+    <tr>
+      <td>
+        <div class="initiative-cell">
+          <input class="initiative-input" type="number" inputmode="numeric" min="0" placeholder="0" aria-label="Initiative">
+          <button class="roll-btn" type="button" aria-label="Roll d20">d20</button>
+        </div>
+      </td>
+      <td><input type="text" placeholder="Combatant name" aria-label="Name"></td>
+      <td><input type="number" inputmode="numeric" min="0" placeholder="HP" aria-label="HP"></td>
+      <td><input type="number" inputmode="numeric" min="0" placeholder="AC" aria-label="AC"></td>
+      <td><input type="text" placeholder="Blinded, Prone..." aria-label="Conditions"></td>
+    </tr>
+  </template>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
