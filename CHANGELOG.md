@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.2.0 (2026-03-18)
+
+### Features
+
+- Create MVP app
+  ([`b7298d2`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/b7298d2446c5c5cf6f7c680a9a86dcdfc06cf10f))
+
+
 ## v0.1.0 (2026-03-18)
 
 ### Chores
