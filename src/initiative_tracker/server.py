@@ -21,12 +21,12 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/api/health")
-def health_check() -> dict[str, str]:
+async def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
 @app.get("/")
-def index(request: Request):
+async def index(request: Request):
     return templates.TemplateResponse(
         request=request,
         name="index.html",
