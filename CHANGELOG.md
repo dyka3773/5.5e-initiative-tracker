@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.4.0 (2026-03-18)
+
+### Features
+
+- Make the app endpoints asynchronous
+  ([`1ba869b`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/1ba869b44b70320132374d6946cf8ce8e978b5ef))
+
+
 ## v0.3.1 (2026-03-18)
 
 ### Bug Fixes
