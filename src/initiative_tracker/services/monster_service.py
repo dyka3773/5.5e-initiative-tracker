@@ -20,9 +20,14 @@ class MonsterDetails:
     name: str
     hit_points: int | None
     armor_class: int | None
+    initiative_modifier: int
 
 
 class MonsterService:
+    @staticmethod
+    def _ability_modifier(score: int) -> int:
+        return (score - 10) // 2
+
     def __init__(self) -> None:
         self._monster_index_cache: dict[str, Any] = {
             "expires_at": 0.0,
@@ -105,11 +110,13 @@ class MonsterService:
             raise HTTPException(status_code=502, detail="Monster data provider returned invalid data")
 
         hit_points = payload.get("hit_points")
+        dexterity = payload.get("dexterity")
         details = MonsterDetails(
             index=payload.get("index", monster_index),
             name=payload.get("name", ""),
             hit_points=hit_points if isinstance(hit_points, int) else None,
             armor_class=self._extract_armor_class(payload),
+            initiative_modifier=self._ability_modifier(dexterity) if isinstance(dexterity, int) else 0,
         )
 
         self._monster_cache[monster_index] = details

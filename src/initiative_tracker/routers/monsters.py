@@ -30,4 +30,5 @@ async def get_monster(monster_index: str) -> dict[str, str | int | None]:
         "name": monster.name,
         "hit_points": monster.hit_points,
         "armor_class": monster.armor_class,
+        "initiative_modifier": monster.initiative_modifier,
     }

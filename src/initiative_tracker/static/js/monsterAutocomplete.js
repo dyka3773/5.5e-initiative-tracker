@@ -2,6 +2,24 @@ import { MIN_SEARCH_LENGTH, SEARCH_DEBOUNCE_MS } from "./constants.js";
 import { fetchMonster, searchMonstersByName } from "./monsterApi.js";
 import { debounce } from "./utils.js";
 
+function formatRollButtonLabel(modifier) {
+  if (modifier > 0) {
+    return `d20+${modifier}`;
+  }
+
+  if (modifier < 0) {
+    return `d20${modifier}`;
+  }
+
+  return "d20";
+}
+
+function updateRollButton(rollButton, modifier) {
+  rollButton.dataset.modifier = String(modifier);
+  rollButton.textContent = formatRollButtonLabel(modifier);
+  rollButton.setAttribute("aria-label", `Roll ${formatRollButtonLabel(modifier)}`);
+}
+
 function hideSuggestionList(state) {
   state.items = [];
   state.selectedIndex = -1;
@@ -88,10 +106,14 @@ export function setupMonsterAutocomplete(row) {
   const hpInput = row.querySelector(".hp-input");
   const acInput = row.querySelector(".ac-input");
   const nameCell = row.querySelector(".name-cell");
+  const initiativeInput = row.querySelector(".initiative-input");
+  const rollButton = row.querySelector(".roll-btn");
 
-  if (!(nameInput instanceof HTMLInputElement) || !(hpInput instanceof HTMLInputElement) || !(acInput instanceof HTMLInputElement) || !(nameCell instanceof HTMLTableCellElement)) {
+  if (!(nameInput instanceof HTMLInputElement) || !(hpInput instanceof HTMLInputElement) || !(acInput instanceof HTMLInputElement) || !(nameCell instanceof HTMLTableCellElement) || !(initiativeInput instanceof HTMLInputElement) || !(rollButton instanceof HTMLButtonElement)) {
     return;
   }
+
+  updateRollButton(rollButton, 0);
 
   const list = document.createElement("ul");
   list.className = "monster-suggestions hidden";
@@ -119,6 +141,12 @@ export function setupMonsterAutocomplete(row) {
         if (Number.isFinite(details.armor_class)) {
           acInput.value = String(details.armor_class);
         }
+
+        const modifier = Number.isFinite(details.initiative_modifier)
+          ? details.initiative_modifier
+          : 0;
+        initiativeInput.value = "0";
+        updateRollButton(rollButton, modifier);
       } catch (error) {
         // Keep the current row state if the API call fails.
       }

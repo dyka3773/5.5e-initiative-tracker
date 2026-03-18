@@ -10,6 +10,12 @@ function rollD20() {
   return Math.floor(Math.random() * 20) + 1;
 }
 
+function getInitiativeModifierFromButton(button) {
+  const rawModifier = button.dataset.modifier;
+  const modifier = Number.parseInt(rawModifier ?? "0", 10);
+  return Number.isNaN(modifier) ? 0 : modifier;
+}
+
 function setupRollActions(bodyNode) {
   bodyNode.addEventListener("click", (event) => {
     const target = event.target;
@@ -21,9 +27,11 @@ function setupRollActions(bodyNode) {
     const row = target.closest("tr");
     const initiativeInput = row?.querySelector(".initiative-input");
 
-    if (initiativeInput instanceof HTMLInputElement) {
-      initiativeInput.value = String(rollD20());
+    if (initiativeInput instanceof HTMLInputElement && target instanceof HTMLButtonElement) {
+      const modifier = getInitiativeModifierFromButton(target);
+      initiativeInput.value = String(rollD20() + modifier);
       initiativeInput.dispatchEvent(new Event("input", { bubbles: true }));
+      target.blur();
     }
   });
 }
