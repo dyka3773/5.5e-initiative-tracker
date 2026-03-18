@@ -14,6 +14,7 @@ app = FastAPI(
     title="5.5e Initiative Tracker",
     description="A lightweight initiative tracker for tabletop combat.",
     version=metadata.version("initiative-tracker"),
+    docs_url=None,
 )
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

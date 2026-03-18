@@ -1,0 +1,20 @@
+services:
+  app:
+    image: ghcr.io/dyka3773/5.5e-initiative-tracker:latest
+    container_name: initiative-tracker
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOME}/.docker/config.json:/config.json:ro
+    environment:
+      - DOCKER_CONFIG=/
+      - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_CLEANUP=true
+    # Only watch the app container, not watchtower itself
+    command: initiative-tracker
+    restart: unless-stopped
