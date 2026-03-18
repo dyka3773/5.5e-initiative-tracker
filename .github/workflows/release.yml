@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      force_docker_build:
+        description: Build and push Docker image even if no release is created
+        required: false
+        type: boolean
+        default: false
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -44,7 +50,7 @@ jobs:
 
   docker:
     needs: release
-    if: needs.release.outputs.released == 'true'
+    if: needs.release.outputs.released == 'true' || (github.event_name == 'workflow_dispatch' && inputs.force_docker_build)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -54,7 +60,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v6
       with:
-        ref: ${{ needs.release.outputs.tag }}
+        ref: ${{ needs.release.outputs.tag || github.sha }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -69,12 +75,19 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
+    - name: Build and push Docker image (latest)
       uses: docker/build-push-action@v6
       with:
         context: .
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: |
-          ghcr.io/${{ github.repository }}:latest
-          ghcr.io/${{ github.repository }}:${{ needs.release.outputs.tag }}
+        tags: ghcr.io/${{ github.repository }}:latest
+
+    - name: Build and push Docker image (release tag)
+      if: needs.release.outputs.released == 'true'
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ghcr.io/${{ github.repository }}:${{ needs.release.outputs.tag }}
