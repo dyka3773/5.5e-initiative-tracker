@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.3.1 (2026-03-18)
+
+### Bug Fixes
+
+- Switch the server to debug mode by default
+  ([`c884c52`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/c884c52680140f23fd2bd92978206203249abba0))
+
+### Continuous Integration
+
+- Setup a dcoker package release and an automatic update on prod
+  ([`4c3e7c9`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/4c3e7c94def3601557edeaba01ab72822f4e325d))
+
+
 ## v0.3.0 (2026-03-18)
 
 ### Features
