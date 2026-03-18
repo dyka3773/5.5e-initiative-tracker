@@ -2,12 +2,13 @@ from importlib import metadata
 from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
+templates = Jinja2Templates(directory=STATIC_DIR)
 
 app = FastAPI(
     title="5.5e Initiative Tracker",
@@ -24,8 +25,12 @@ def health_check() -> dict[str, str]:
 
 
 @app.get("/")
-def index() -> FileResponse:
-    return FileResponse(STATIC_DIR / "index.html")
+def index(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"app_version": app.version},
+    )
 
 
 def main() -> None:
