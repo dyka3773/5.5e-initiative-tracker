@@ -35,7 +35,12 @@ def index(request: Request):
 
 
 def main() -> None:
-    uvicorn.run("initiative_tracker.server:app", host="0.0.0.0", port=8000)
+    uvicorn.run(
+        "initiative_tracker.server:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )
 
 
 if __name__ == "__main__":
