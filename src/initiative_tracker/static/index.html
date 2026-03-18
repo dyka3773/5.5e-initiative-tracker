@@ -49,13 +49,13 @@
           <button class="roll-btn" type="button" aria-label="Roll d20">d20</button>
         </div>
       </td>
-      <td><input type="text" placeholder="Combatant name" aria-label="Name"></td>
-      <td><input type="number" inputmode="numeric" min="0" placeholder="HP" aria-label="HP"></td>
-      <td><input type="number" inputmode="numeric" min="0" placeholder="AC" aria-label="AC"></td>
+      <td class="name-cell"><input class="name-input" type="text" placeholder="Combatant name" aria-label="Name" autocomplete="off" spellcheck="false"></td>
+      <td><input class="hp-input" type="number" inputmode="numeric" min="0" placeholder="HP" aria-label="HP"></td>
+      <td><input class="ac-input" type="number" inputmode="numeric" min="0" placeholder="AC" aria-label="AC"></td>
       <td><input type="text" placeholder="Blinded, Prone..." aria-label="Conditions"></td>
     </tr>
   </template>
 
-  <script src="/static/app.js?v={{ app_version }}" defer></script>
+  <script src="/static/js/main.js?v={{ app_version }}" type="module"></script>
 </body>
 </html>

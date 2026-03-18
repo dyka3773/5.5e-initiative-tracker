@@ -138,6 +138,10 @@ td {
   vertical-align: top;
 }
 
+.name-cell {
+  position: relative;
+}
+
 th {
   text-align: left;
   font-size: 0.85rem;
@@ -160,6 +164,46 @@ input {
 input:focus {
   outline: 2px solid rgba(191, 77, 40, 0.25);
   border-color: var(--accent);
+}
+
+.monster-suggestions {
+  position: absolute;
+  z-index: 30;
+  left: 0.7rem;
+  right: 0.7rem;
+  top: calc(100% - 0.2rem);
+  margin: 0;
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fffaf3;
+  box-shadow: 0 10px 24px rgba(44, 31, 20, 0.18);
+  list-style: none;
+}
+
+.monster-suggestions.open-up {
+  top: auto;
+  bottom: calc(100% - 0.2rem);
+}
+
+.monster-suggestions.hidden {
+  display: none;
+}
+
+.monster-suggestion-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.9rem;
+}
+
+.monster-suggestion-btn:hover,
+.monster-suggestion-btn.selected {
+  background: rgba(191, 77, 40, 0.14);
 }
 
 .initiative-cell {

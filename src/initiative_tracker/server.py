@@ -1,37 +1,35 @@
+import mimetypes
 from importlib import metadata
-from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
-BASE_DIR = Path(__file__).resolve().parent
-STATIC_DIR = BASE_DIR / "static"
-templates = Jinja2Templates(directory=STATIC_DIR)
-
-app = FastAPI(
-    title="5.5e Initiative Tracker",
-    description="A lightweight initiative tracker for tabletop combat.",
-    version=metadata.version("initiative-tracker"),
-    docs_url=None,
-)
-
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+from initiative_tracker.config import STATIC_DIR
+from initiative_tracker.routers import build_pages_router, health_router, monsters_router
 
 
-@app.get("/api/health")
-async def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+def create_app() -> FastAPI:
+    # Windows can map .js to text/plain, which breaks ES module execution in browsers.
+    mimetypes.add_type("application/javascript", ".js")
+    mimetypes.add_type("application/javascript", ".mjs")
 
-
-@app.get("/")
-async def index(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="index.html",
-        context={"app_version": app.version},
+    version = metadata.version("initiative-tracker")
+    application = FastAPI(
+        title="5.5e Initiative Tracker",
+        description="A lightweight initiative tracker for tabletop combat.",
+        version=version,
+        docs_url=None,
     )
+
+    application.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+    application.include_router(health_router)
+    application.include_router(monsters_router)
+    application.include_router(build_pages_router(str(STATIC_DIR), version))
+    return application
+
+
+app = create_app()
 
 
 def main() -> None:
