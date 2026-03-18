@@ -1,6 +1,6 @@
 [project]
 name = "initiative-tracker"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
     { name = "Iraklis Konsoulas", email = "dyka3773@gmail.com" },
 ]
