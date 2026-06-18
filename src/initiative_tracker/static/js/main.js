@@ -16,15 +16,51 @@ function getInitiativeModifierFromButton(button) {
   return Number.isNaN(modifier) ? 0 : modifier;
 }
 
+function setCombatantType(row, type) {
+  if (!(row instanceof HTMLTableRowElement)) {
+    return;
+  }
+
+  const resolvedType = type === "pc" ? "pc" : "npc";
+  row.dataset.combatantType = resolvedType;
+
+  const toggleButton = row.querySelector("[data-type-toggle]");
+  if (toggleButton instanceof HTMLButtonElement) {
+    const isPc = resolvedType === "pc";
+    toggleButton.setAttribute("aria-pressed", String(isPc));
+    toggleButton.setAttribute(
+      "aria-label",
+      isPc ? "Marked as player character" : "Marked as non-player character",
+    );
+    const tooltipText = isPc
+      ? "PC: this row is kept when you use Clear Table. Click to mark as NPC."
+      : "NPC: this row is removed by Clear Table. Click to keep it.";
+    toggleButton.dataset.tooltip = tooltipText;
+    toggleButton.removeAttribute("title");
+  }
+}
+
 function setupRollActions(bodyNode) {
   bodyNode.addEventListener("click", (event) => {
     const target = event.target;
 
-    if (!(target instanceof HTMLElement) || !target.classList.contains("roll-btn")) {
+    if (!(target instanceof HTMLElement)) {
       return;
     }
 
     const row = target.closest("tr");
+
+    if (target.matches("[data-type-toggle]") && row instanceof HTMLTableRowElement) {
+      const nextType = row.dataset.combatantType === "pc" ? "npc" : "pc";
+      setCombatantType(row, nextType);
+      target.blur();
+      return;
+    }
+
+    if (!target.classList.contains("roll-btn")) {
+      return;
+    }
+
     const initiativeInput = row?.querySelector(".initiative-input");
 
     if (initiativeInput instanceof HTMLInputElement && target instanceof HTMLButtonElement) {
@@ -51,4 +87,10 @@ if (
   clearButton.addEventListener("click", table.clearTable);
 
   table.addInitialRows();
+
+  body.querySelectorAll("tr").forEach((row) => {
+    if (row instanceof HTMLTableRowElement) {
+      setCombatantType(row, row.dataset.combatantType);
+    }
+  });
 }

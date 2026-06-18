@@ -2,6 +2,10 @@ import { INITIAL_ROWS } from "./constants.js";
 import { setupMonsterAutocomplete } from "./monsterAutocomplete.js";
 
 export function createTableController(body, rowTemplate) {
+  function isRowPc(row) {
+    return row.dataset.combatantType === "pc";
+  }
+
   function createRow() {
     const row = rowTemplate.content.firstElementChild.cloneNode(true);
     setupMonsterAutocomplete(row);
@@ -19,8 +23,15 @@ export function createTableController(body, rowTemplate) {
   }
 
   function clearTable() {
+    const rows = Array.from(body.querySelectorAll("tr"));
+    const pcRows = rows.filter(isRowPc);
+
     body.innerHTML = "";
-    addInitialRows();
+    pcRows.forEach((row) => body.appendChild(row));
+
+    if (pcRows.length === 0) {
+      addInitialRows();
+    }
   }
 
   function extractInitiativeValue(row) {
