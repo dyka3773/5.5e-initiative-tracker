@@ -28,6 +28,7 @@
         <table aria-label="Combatant initiative table">
           <thead>
             <tr>
+              <th scope="col" aria-label="Persistence toggle"></th>
               <th scope="col">Initiative</th>
               <th scope="col">Name</th>
               <th scope="col">HP</th>
@@ -42,7 +43,10 @@
   </main>
 
   <template id="row-template">
-    <tr>
+    <tr data-combatant-type="npc">
+      <td>
+        <button class="type-toggle-btn" type="button" data-type-toggle aria-pressed="false" aria-label="Mark as player character" data-tooltip="NPC: this row is removed by Clear Table. Click to keep it."></button>
+      </td>
       <td>
         <div class="initiative-cell">
           <input class="initiative-input" type="number" inputmode="numeric" min="0" placeholder="0" aria-label="Initiative">
