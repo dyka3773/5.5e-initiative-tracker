@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.7.0 (2026-06-18)
+
+### Features
+
+- Show a d20 die instead of the d20 string and make it look like it rolls
+  ([`fa17af5`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/fa17af5d933ca456c5057285ed6386c1942da33f))
+
+
 ## v0.6.0 (2026-06-18)
 
 ### Bug Fixes
