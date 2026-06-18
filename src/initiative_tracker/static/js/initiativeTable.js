@@ -6,6 +6,10 @@ export function createTableController(body, rowTemplate) {
     return row.dataset.combatantType === "pc";
   }
 
+  function isRowNpc(row) {
+    return !isRowPc(row);
+  }
+
   function createRow() {
     const row = rowTemplate.content.firstElementChild.cloneNode(true);
     setupMonsterAutocomplete(row);
@@ -22,8 +26,26 @@ export function createTableController(body, rowTemplate) {
     }
   }
 
-  function clearTable() {
+  function clearTable(mode = "npcs") {
+    if (mode === "all") {
+      body.innerHTML = "";
+      addInitialRows();
+      return;
+    }
+
     const rows = Array.from(body.querySelectorAll("tr"));
+    if (mode === "pcs") {
+      const npcRows = rows.filter(isRowNpc);
+
+      body.innerHTML = "";
+      npcRows.forEach((row) => body.appendChild(row));
+
+      if (npcRows.length === 0) {
+        addInitialRows();
+      }
+      return;
+    }
+
     const pcRows = rows.filter(isRowPc);
 
     body.innerHTML = "";
