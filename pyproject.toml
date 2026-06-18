@@ -87,7 +87,9 @@ deps = [
     "pytest==9.0.2",
     "pytest-cov>=6.2.1",
 ]
-commands = [[ "pytest", "-v" ]]
+commands = [
+    ["pytest", "--cov=initiative_tracker", "--cov-report=term-missing", "--cov-report=html", "--cov-report=xml", "-v"]
+]
 
 [tool.tox.env.lint]
 description = "Lint the codebase with ruff"
@@ -96,3 +98,20 @@ deps = [
 ]
 skip_install = true
 commands = [[ "ruff", "check", "src/", "tests/" ]]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/.venv/*",
+    "*/venv/*",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "htmlcov"
