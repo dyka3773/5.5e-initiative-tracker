@@ -2,22 +2,27 @@ import { MIN_SEARCH_LENGTH, SEARCH_DEBOUNCE_MS } from "./constants.js";
 import { fetchMonster, searchMonstersByName } from "./monsterApi.js";
 import { debounce } from "./utils.js";
 
-function formatRollButtonLabel(modifier) {
+function formatRollModifierLabel(modifier) {
   if (modifier > 0) {
-    return `d20+${modifier}`;
+    return `+${modifier}`;
   }
 
   if (modifier < 0) {
-    return `d20${modifier}`;
+    return `${modifier}`;
   }
 
-  return "d20";
+  return "";
 }
 
 function updateRollButton(rollButton, modifier) {
+  const modifierLabel = formatRollModifierLabel(modifier);
+  const modifierElement = rollButton.querySelector(".roll-modifier");
+
   rollButton.dataset.modifier = String(modifier);
-  rollButton.textContent = formatRollButtonLabel(modifier);
-  rollButton.setAttribute("aria-label", `Roll ${formatRollButtonLabel(modifier)}`);
+  if (modifierElement instanceof HTMLSpanElement) {
+    modifierElement.textContent = modifierLabel;
+  }
+  rollButton.setAttribute("aria-label", `Roll d20${modifierLabel}`);
 }
 
 function hideSuggestionList(state) {

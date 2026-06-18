@@ -370,16 +370,58 @@ tr[data-combatant-type="pc"] .type-toggle-btn {
   right: 0.35rem;
   top: 50%;
   transform: translateY(-50%) scale(0.95);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
   border-radius: 6px;
   border: 1px solid rgba(44, 31, 20, 0.18);
   background: #fff;
   color: var(--ink);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-family: "JetBrains Mono", monospace;
-  padding: 0.25rem 0.45rem;
+  padding: 0.2rem 0.35rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 130ms ease, transform 130ms ease;
+}
+
+.roll-btn-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: block;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.roll-btn-icon.is-rolling {
+  animation: d20-roll 130ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes d20-roll {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(110deg) translateX(1px);
+  }
+  55% {
+    transform: rotate(235deg) translateX(-1px);
+  }
+  78% {
+    transform: rotate(315deg) translateX(1px);
+  }
+  100% {
+    transform: rotate(360deg) translateX(0);
+  }
+}
+
+.roll-modifier {
+  min-width: 1.25rem;
+  line-height: 1;
+}
+
+.roll-modifier:empty {
+  display: none;
 }
 
 .initiative-cell:hover .roll-btn,
@@ -391,6 +433,12 @@ tr[data-combatant-type="pc"] .type-toggle-btn {
 
 .roll-btn:hover {
   background: #f8eee4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll-btn-icon.is-rolling {
+    animation: none;
+  }
 }
 
 @media (max-width: 800px) {

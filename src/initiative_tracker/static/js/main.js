@@ -46,30 +46,47 @@ function setupRollActions(bodyNode) {
   bodyNode.addEventListener("click", (event) => {
     const target = event.target;
 
-    if (!(target instanceof HTMLElement)) {
+    if (!(target instanceof Element)) {
       return;
     }
 
     const row = target.closest("tr");
+    const toggleButton = target.closest("[data-type-toggle]");
 
-    if (target.matches("[data-type-toggle]") && row instanceof HTMLTableRowElement) {
+    if (toggleButton instanceof HTMLButtonElement && row instanceof HTMLTableRowElement) {
       const nextType = row.dataset.combatantType === "pc" ? "npc" : "pc";
       setCombatantType(row, nextType);
-      target.blur();
+      toggleButton.blur();
       return;
     }
 
-    if (!target.classList.contains("roll-btn")) {
+    const rollButton = target.closest(".roll-btn");
+    if (!(rollButton instanceof HTMLButtonElement)) {
       return;
     }
 
     const initiativeInput = row?.querySelector(".initiative-input");
 
-    if (initiativeInput instanceof HTMLInputElement && target instanceof HTMLButtonElement) {
-      const modifier = getInitiativeModifierFromButton(target);
+    if (initiativeInput instanceof HTMLInputElement) {
+      const rollIcon = rollButton.querySelector(".roll-btn-icon");
+      if (rollIcon instanceof HTMLElement) {
+        rollIcon.classList.remove("is-rolling");
+        // Force layout so rapid clicks restart the animation each time.
+        void rollIcon.offsetWidth;
+        rollIcon.classList.add("is-rolling");
+      }
+
+      const modifier = getInitiativeModifierFromButton(rollButton);
       initiativeInput.value = String(rollD20() + modifier);
       initiativeInput.dispatchEvent(new Event("input", { bubbles: true }));
-      target.blur();
+      rollButton.blur();
+    }
+  });
+
+  bodyNode.addEventListener("animationend", (event) => {
+    const target = event.target;
+    if (target instanceof HTMLElement && target.classList.contains("roll-btn-icon")) {
+      target.classList.remove("is-rolling");
     }
   });
 }

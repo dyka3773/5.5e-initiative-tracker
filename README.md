@@ -7,7 +7,9 @@ A lightweight initiative tracker web app for Dungeons and Dragons 5.5e, built wi
 - Initiative table with columns for Initiative, Name, HP, AC, and Conditions
 - Five starter rows, with an Add Row button for larger encounters
 - Sort button to order all combatants by Initiative (descending)
-- Clear Table button to reset the board
+- PC/Monster toggle to differentiate player characters from monsters
+- Clear Table button to reset the board and only keep the PC rows
+  - With options to clear All rows, only Monster rows, or only PC rows
 - Hover-based d20 roll button in each Initiative cell for quick random initiative rolls
 
 ## Run Locally
