@@ -20,7 +20,7 @@ dependencies = [
     "jinja2>=3.1.6",
     "uvicorn[standard]>=0.35.0",
 ]
-
+pytest
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
@@ -86,6 +86,7 @@ env_list = ["lint", "3.14"]
 description = "Run tests with the current Python version"
 deps = [
     "pytest==9.0.2",
+    "pytest-cov>=6.2.1",
 ]
 commands = [[ "pytest", "-v" ]]
 
