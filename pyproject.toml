@@ -21,6 +21,12 @@ dependencies = [
     "uvicorn[standard]>=0.35.0",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=6.2.1",
+]
+
 [project.urls]
 source = "https://github.com/dyka3773/5.5e-initiative-tracker"
 
@@ -33,6 +39,7 @@ build-backend = "uv_build"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+addopts = "--cov=initiative_tracker --cov-report=term-missing"
 
 [tool.semantic_release]
 build_command = """
