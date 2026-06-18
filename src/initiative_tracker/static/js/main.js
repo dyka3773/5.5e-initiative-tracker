@@ -5,6 +5,8 @@ const rowTemplate = document.getElementById("row-template");
 const addRowButton = document.getElementById("add-row-btn");
 const sortButton = document.getElementById("sort-btn");
 const clearButton = document.getElementById("clear-btn");
+const clearMenuButton = document.getElementById("clear-menu-btn");
+const clearMenu = document.getElementById("clear-menu");
 
 function rollD20() {
   return Math.floor(Math.random() * 20) + 1;
@@ -77,14 +79,70 @@ if (
   rowTemplate instanceof HTMLTemplateElement &&
   addRowButton instanceof HTMLButtonElement &&
   sortButton instanceof HTMLButtonElement &&
-  clearButton instanceof HTMLButtonElement
+  clearButton instanceof HTMLButtonElement &&
+  clearMenuButton instanceof HTMLButtonElement &&
+  clearMenu instanceof HTMLDivElement
 ) {
   const table = createTableController(body, rowTemplate);
   setupRollActions(body);
 
+  function closeClearMenu() {
+    clearMenu.classList.add("hidden");
+    clearMenuButton.setAttribute("aria-expanded", "false");
+  }
+
+  function openClearMenu() {
+    clearMenu.classList.remove("hidden");
+    clearMenuButton.setAttribute("aria-expanded", "true");
+  }
+
+  function toggleClearMenu() {
+    if (clearMenu.classList.contains("hidden")) {
+      openClearMenu();
+      return;
+    }
+    closeClearMenu();
+  }
+
   addRowButton.addEventListener("click", table.addRow);
   sortButton.addEventListener("click", table.sortRowsByInitiative);
-  clearButton.addEventListener("click", table.clearTable);
+  clearButton.addEventListener("click", () => {
+    table.clearTable("npcs");
+    closeClearMenu();
+  });
+  clearMenuButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleClearMenu();
+  });
+  clearMenu.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const mode = target.getAttribute("data-clear-mode");
+    if (mode === "all" || mode === "npcs" || mode === "pcs") {
+      table.clearTable(mode);
+      closeClearMenu();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Node)) {
+      return;
+    }
+
+    if (!clearMenu.contains(target) && !clearMenuButton.contains(target)) {
+      closeClearMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeClearMenu();
+    }
+  });
 
   table.addInitialRows();
 

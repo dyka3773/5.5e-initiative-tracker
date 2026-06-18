@@ -20,7 +20,24 @@
         <div class="actions" role="group" aria-label="Table actions">
           <button id="sort-btn" type="button">Sort by Initiative</button>
           <button id="add-row-btn" type="button">Add Row</button>
-          <button id="clear-btn" type="button" class="danger">Clear Table</button>
+          <div class="clear-actions">
+            <button id="clear-btn" type="button" class="danger">Clear Table</button>
+            <button
+              id="clear-menu-btn"
+              type="button"
+              class="danger clear-menu-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="clear-menu"
+              aria-label="Clear table options"
+            >
+              ▾
+            </button>
+            <div id="clear-menu" class="clear-menu hidden" role="menu" aria-label="Clear table options">
+              <button type="button" class="clear-menu-item" data-clear-mode="all" role="menuitem">Clear All Rows (NPC + PC)</button>
+              <button type="button" class="clear-menu-item" data-clear-mode="pcs" role="menuitem">Clear PC Rows</button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -56,7 +73,7 @@
       <td class="name-cell"><input class="name-input" type="text" placeholder="Combatant name" aria-label="Name" autocomplete="off" spellcheck="false"></td>
       <td><input class="hp-input" type="number" inputmode="numeric" min="0" placeholder="HP" aria-label="HP"></td>
       <td><input class="ac-input" type="number" inputmode="numeric" min="0" placeholder="AC" aria-label="AC"></td>
-      <td><input type="text" placeholder="Blinded, Prone..." aria-label="Conditions"></td>
+      <td><input type="text" placeholder="Blinded, Prone, Poisoned, Incapacitated, etc." aria-label="Conditions"></td>
     </tr>
   </template>
 

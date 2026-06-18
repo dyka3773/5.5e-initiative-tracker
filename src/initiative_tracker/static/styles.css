@@ -93,6 +93,12 @@ h1 {
   justify-content: flex-end;
 }
 
+.clear-actions {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+}
+
 button {
   border: 1px solid transparent;
   border-radius: 10px;
@@ -120,6 +126,62 @@ button {
 
 .actions .danger:hover {
   background: var(--danger-hover);
+}
+
+.clear-actions #clear-btn {
+  border-radius: 10px 0 0 10px;
+}
+
+.clear-menu-toggle {
+  min-width: 1.55rem;
+  padding: 0.55rem 0.3rem;
+  border-left-color: rgba(255, 255, 255, 0.35);
+  border-radius: 0 10px 10px 0;
+  font-family: inherit;
+  font-size: 0.76rem;
+  line-height: 1;
+}
+
+.clear-menu-toggle:hover {
+  border-left-color: rgba(255, 255, 255, 0.5);
+}
+
+.clear-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.28rem);
+  min-width: 14.5rem;
+  border: 1px solid rgba(44, 31, 20, 0.14);
+  border-radius: 10px;
+  background: #fffaf3;
+  box-shadow: 0 12px 26px rgba(44, 31, 20, 0.16);
+  padding: 0.25rem;
+  z-index: 40;
+}
+
+.clear-menu.hidden {
+  display: none;
+}
+
+.actions .clear-menu-item {
+  width: 100%;
+  display: block;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font-size: 0.83rem;
+  font-weight: 600;
+  padding: 0.42rem 0.55rem;
+  transform: none;
+}
+
+.actions .clear-menu-item:hover,
+.actions .clear-menu-item:focus-visible {
+  background: rgba(44, 31, 20, 0.08);
+  color: var(--danger);
+  transform: none;
 }
 
 .table-wrap {
