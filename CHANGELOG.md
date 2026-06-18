@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## v0.6.0 (2026-06-18)
+
+### Bug Fixes
+
+- Remove aria navigation indications from dropdown menu
+  ([`eb5bb51`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/eb5bb51b78465cd3af264a79bfa8366125d5a0fa))
+
+### Chores
+
+- **deps**: Bump idna in the uv group across 1 directory
+  ([`206be77`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/206be7769f8d7cc41575b2a793e24b209a548cf6))
+
+- **deps**: Bump starlette in the uv group across 1 directory
+  ([`5099100`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/5099100237dc959a173f31e5627620f5f533672e))
+
+- **fix**: Add coverage configurations
+  ([`60f9595`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/60f9595a6a10d59ef45ec02054b605bd60589cbe))
+
+- **fix**: Add pytest-cov dependency for tox as well
+  ([`d98f684`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/d98f684b0c30fb1b5d38037bf022f34f1636db26))
+
+- **fix**: Typo
+  ([`f8d0151`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/f8d0151a92f518f729361844302e27edf190bd7b))
+
+### Features
+
+- Add a dropdown menu in the clear button with more options
+  ([`5ed48fa`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/5ed48fa174fbe00da29f2dc42ec077ea2213bd9a))
+
+- Add a PC-NPC distinction button and make Clear Table keep PCs. Also, adjust the dimensions of each
+  column
+  ([`f717989`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/f717989653d6ef60e8f3e08541ece86842050878))
+
+### Testing
+
+- Add code coverage testing
+  ([`3d69644`](https://github.com/dyka3773/5.5e-initiative-tracker/commit/3d6964435fddbcd116a1ec442d512b00b00739ab))
+
+
 ## v0.5.0 (2026-03-18)
 
 
